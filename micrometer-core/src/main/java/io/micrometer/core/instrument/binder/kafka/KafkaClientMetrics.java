@@ -20,8 +20,9 @@ import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Kafka client metrics collected directly from the kafka MetricsReporter
+ * {@link org.apache.kafka.common.metrics.MetricsReporter}
  *
- * @see <a href="">Kafka Metrics Reporter</a>
+ * @see <a href="https://kafka.apache.org/documentation/#monitoring">Kafka Metrics Reporter</a>
  * @author Marcos Maia
  */
 @NonNullApi
@@ -33,6 +34,10 @@ public class KafkaClientMetrics implements MetricsReporter {
     @Override
     public void init(List<KafkaMetric> metrics) {}
 
+    /**
+     * Emitted by MetricsReporter {@link org.apache.kafka.common.metrics.MetricsReporter#metricChange(KafkaMetric)}
+     * @param metric that has change with new value.
+     */
     @Override
     public void metricChange(KafkaMetric metric) {
         String metricName = metric.metricName().name();
@@ -50,6 +55,10 @@ public class KafkaClientMetrics implements MetricsReporter {
         }
     }
 
+    /**
+     * TODO - implement this
+     * @param metric
+     */
     @Override
     public void metricRemoval(KafkaMetric metric) {}
 
