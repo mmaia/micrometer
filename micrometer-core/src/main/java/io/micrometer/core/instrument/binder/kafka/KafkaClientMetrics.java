@@ -43,12 +43,9 @@ public class KafkaClientMetrics implements MetricsReporter {
         String metricName = metric.metricName().name();
         if(metricName.contains("total")) {
             registerCounter(metric);
-        } else if(metricName.contains("rate")) {
-            registerGauge(metric);
         } else if(metricName.contains("time") ||
-                metricName.contains("ratio")  ||
                 metricName.contains("latency")) {
-            registerTimeGauge(metric);
+            registerTimeGauge(metric, TimeUnit.MILLISECONDS);
         }
         else { // fall back is a gauge which is more generic.
             registerGauge(metric);
@@ -91,12 +88,12 @@ public class KafkaClientMetrics implements MetricsReporter {
                 .register(registry));
     }
 
-    private void registerTimeGauge(KafkaMetric kafkaMetric) {
+    private void registerTimeGauge(KafkaMetric kafkaMetric, TimeUnit timeUnit) {
         if(registry == null) {
             registry = Metrics.globalRegistry;
         }
         final AtomicReference<TimeGauge> timeGauge = new AtomicReference<>();
-        timeGauge.set(TimeGauge.builder(createId(kafkaMetric), kafkaMetric, TimeUnit.MILLISECONDS,
+        timeGauge.set(TimeGauge.builder(createId(kafkaMetric), kafkaMetric, timeUnit,
                 m -> safeDouble(m.metricValue()))
                 .description(kafkaMetric.metricName().description())
                 .tags(parseTags(kafkaMetric.metricName().tags(), kafkaMetric.metricName().group()))
