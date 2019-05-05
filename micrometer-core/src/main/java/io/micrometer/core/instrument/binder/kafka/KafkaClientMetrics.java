@@ -101,6 +101,7 @@ public class KafkaClientMetrics implements MetricsReporter {
     }
 
     /**
+     * // TODO - names should be kept and distinction made by tags instead.
      * Creates a unique identifier to the metric giving it a prefix + name + tags flattened separated by "." + group
      * so they're guaranteed to be unique.
      * @param metric the kafka metric to create an ID for.
@@ -115,6 +116,7 @@ public class KafkaClientMetrics implements MetricsReporter {
     }
 
     /**
+     * // TODO - this should be probabably removed, @see createId above.
      * Prefixes the metric based on it's group as defined by kafka documentation, check link below for more details.
      * @see <a href="https://kafka.apache.org/documentation/#selector_monitoring">Kafka common monitoring metrics</a>
      * @param group the group of the received metric
