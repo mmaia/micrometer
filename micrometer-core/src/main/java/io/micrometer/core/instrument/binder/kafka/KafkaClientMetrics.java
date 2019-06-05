@@ -130,7 +130,11 @@ public class KafkaClientMetrics implements MetricsReporter, MeterBinder {
     String createId(KafkaMetric metric) {
         String metricName = metric.metricName().name();
         String group = metric.metricName().group();
-        return prefix(group) + "." + metricName;
+        return prefix(group) + "." + sanitize(metricName);
+    }
+
+    private String sanitize(String metricName) {
+        return metricName.replaceAll("-", ".");
     }
 
     /**
