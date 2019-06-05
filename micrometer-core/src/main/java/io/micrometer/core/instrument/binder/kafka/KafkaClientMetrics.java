@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
  *
  * @author Marcos Maia
  * @see <a href="https://kafka.apache.org/documentation/#monitoring">Kafka Metrics Reporter</a>
+ * @since 1.2
  */
 @NonNullApi
 public class KafkaClientMetrics implements MetricsReporter, MeterBinder {
